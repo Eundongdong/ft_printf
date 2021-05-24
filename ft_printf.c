@@ -6,42 +6,49 @@
 /*   By: eunjkim <eunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 19:53:15 by eunjkim           #+#    #+#             */
-/*   Updated: 2021/05/12 15:59:53 by eunjkim          ###   ########.fr       */
+/*   Updated: 2021/05/24 18:12:31 by eunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+char 	option_withzero(t_info *info)
+{
+	char c;
+
+	if (info->flag == -1)
+		info ->zero = ' ';
+	if ((info->spec > 0 && info->width != 0)||info->zero == 0)
+		info->zero = ' ';
+	c = (info->zero == '0') ? '0' : ' ';
+	return (c);
+}
+
 int		print_info(t_info *info, int sum)
 {
-	int temp;
-
-
-	printf("\n @@@ sum : %d @@@\n",sum);
-	temp = info->width;
-	printf("\n @@@ info->spec : %d @@@\n",info->spec);
+	char c;
+		
+	c = option_withzero(info);
 	if (sum > info->spec)
 		info->spec = sum;
-	printf("\n @@@ info->spec : %d @@@\n",info->spec);
 	info->width -= info->spec;
-	printf("\n @@@ info->width : %d @@@\n",info->width);
-	if (!(info->flag == -1 && info->zero == '0'))
+	if (!(info->flag == -1 || info->zero == '0'))
 		while (info->width-- > 0)
+		{
 			write(1," ",1);
-	printf("\n @@@ info->spec : %d @@@\n",info->spec);
-	printf("\n @@@ info->width : %d @@@\n",info->width);
+		}
 	if (info->sign == -1)
 		write(1,"-",1);
 	if (!(info->flag == -1))
 		while (info->width-- > 0)
-			write(1,&info->zero,1);
-	printf("\n @@@ info->spec : %d @@@\n",info->spec);
-	printf("\n @@@ info->width : %d @@@\n",info->width);
+		{
+			write(1,&c,1);
+		}	
 	while (sum < info->spec--)
+	{
 		write(1,"0",1);
-	printf("\n @@@ info->spec : %d @@@\n",info->spec);
-	printf("\n @@@ info->width : %d @@@\n",info->width);
-	return(temp);
+	}
+	return(info ->width);
 }
 
 int		find_num_length(int num)
@@ -63,43 +70,129 @@ int     type_int(t_info *info, va_list ap, int i, char *s)
     int sum;
 	int plus_sum;
 	int temp;
-	
+		
+	if (info->spec <0)
+	{
+		info->width = info->spec * (-1);
+		info->spec = 0;
+		info->flag = -1;
+	}
 	num = va_arg(ap,int);
 	if (num < 0)
 	{
 		num = num * (-1);
 		info->sign = -1;
+		info->width--;
 	}
-    if(num == 0)
-        return (1);
+	if(num == 0 && info->zero != '0' &&info->zerospec ==0)
+    {
+		write(1,"0",1);
+		return(1);
+	}
 	sum = find_num_length(num);
-	printf("\n## %d ##\n",sum);
 	plus_sum = print_info(info, sum);
-	printf("\n## %d ##\n",plus_sum);
-	ft_putnbr(num);
-	temp = plus_sum - sum;
+	if(num>0)
+		ft_putnbr(num);
+	temp = plus_sum;
 	while (temp-- > 0)
-            write(1," ",1);
+            write(1," ",1);		
     return (sum + plus_sum);
 }
 
 int     type_char(t_info *info, va_list ap, int i, char *s)
 {
-    char word;
+    char	word;
+	int		idx;
+	int		spec_num;
+	int		result;
+	// printf("\n @@@ info->flag : %d @@@\n",info->flag);
+	// printf("\n @@@ info->width : %d @@@\n",info->width);
+	// printf("\n @@@ info->spec : %d @@@\n",info->spec);
+	// printf("\n @@@ info->zero : %c @@@\n",info->zero);
+	// printf("\n @@@ info->sign : %d @@@\n",info->sign);
 
-    word = va_arg(ap, int);
-    write(1,&word,1);
-    return (1);
+	idx = 1;
+	result = 1;
+    word = va_arg(ap, int);	
+	
+	if (info->flag == -1)
+		write(1,&word,1);
+	if ((spec_num = info->spec) < 0)
+	{
+		idx = 1;
+		spec_num *= -1;
+		write(1,&word,1);
+		while (idx++ <spec_num)
+			write(1," ",1);
+		
+		return(spec_num);
+	}
+	if (info->width > 0)
+	{
+		while (idx++ < info->width)
+		{
+			if (info->zero == '0' && info->flag ==1)
+				write(1,"0",1);
+			else
+				write(1," ",1);
+		}
+		result = info->width;
+	}
+
+	if (info->flag == 1)
+		write(1,&word,1);
+    return (result);
 }
-
 int     type_string(t_info *info, va_list ap, int i, char *s)
 {
     char	*string;
-    int		sum;
-    
+    int		result;
+	int		idx;
+	int		spec_num;
+	int		string_len;
+
 	string = va_arg(ap, char*);
-    sum = ft_putstr(string);
-	return (sum);
+	string_len = ft_strlen(string);
+	result = 0;
+	idx = 0;
+	if (info->flag == -1 && !(info->zerospec))
+		result = ft_putstr(string);
+	
+	if ((spec_num = info->spec) < 0)
+	{
+		idx = 0;
+		spec_num *= -1;
+		while (idx++ < spec_num)
+			write(1," ",1);
+		result +=idx;
+		return(spec_num);
+	}
+		
+	if (info->spec == 0 &&info->zerospec)
+	{
+		idx = 0;
+		while (idx++ < info->width)
+			write(1," ",1);
+		result += idx;
+		return(info->width);
+	}
+	
+	if (info->width > 0)
+	{
+		while (idx++ < ((info->width) - string_len))
+		{
+			if (info->zero == '0' && info->flag ==1)
+				write(1,"0",1);
+			else
+				write(1," ",1);
+		}
+		string_len = info->width;
+		result +=idx;
+	}
+	
+	if (info->flag == 1)
+		ft_putstr(string);
+	return (result);
 }
 
 int		type_base(t_info *info, va_list ap, int i, char *s)
@@ -120,6 +213,16 @@ int		type_base(t_info *info, va_list ap, int i, char *s)
 	return (sum);
 }
 
+int		type_unsigned(t_info *info, va_list ap, int i, char *s)
+{
+	unsigned int	num;
+
+	num = va_arg(ap,unsigned int);
+	
+}
+
+
+
 int		type_address(t_info *info, va_list ap, int i, char *s)
 {
 	int				sum;
@@ -134,7 +237,6 @@ int		type_address(t_info *info, va_list ap, int i, char *s)
 int     form_check(t_info *info, va_list ap, int i, char *s)
 {
     int sum;
-
     sum = 0;
     if(s[i] == 'd'|| s[i]== 'i')
         sum = type_int(info, ap, i, s);
@@ -142,24 +244,24 @@ int     form_check(t_info *info, va_list ap, int i, char *s)
         sum = type_char(info, ap, i ,s);
     else if (s[i] == 's')
         sum = type_string(info, ap, i, s);
-	else if (s[i] == 'x' || s[i] == 'X'|| s[i] == 'u')
+	else if (s[i] == 'x' || s[i] == 'X')
 		sum = type_base(info, ap, i ,s);
 	else if (s[i] == 'p')
 		sum = type_address(info, ap, i, s);
+	else if (s[i] == 'u')
+		sum = type_unsigned(info,ap,i,s);
 	return(sum);
 }
 
 int     get_flag(va_list ap, t_info *info, int i, char *s)
 {
     i++;
-    while(1)
-    {
-        if(s[i] == '-')
-			info->flag = -1;
-        else
-            break;
+    if(s[i] == '-')
+	{
+		info->flag = -1;
 		i++;
-    }
+	}
+		
 	i = get_width(ap, info, i, s);
 	return(i);
 }
@@ -182,6 +284,11 @@ int     get_width(va_list ap, t_info *info, int i, char *s)
 	if (s[i] == '*')
 	{
 		n = va_arg(ap,int);
+		if (n < 0)
+		{
+			info->flag = -1;
+			n *=-1;
+		}	
 		i++;
 	}
 	info->width = n;
@@ -193,11 +300,20 @@ int     get_width(va_list ap, t_info *info, int i, char *s)
 int		get_spec(va_list ap, t_info *info, int i, char *s)
 {
 	int n;
+	int sign;
+	int check;
 
+	sign = 1;
 	n = 0;
+	check = 0;
 	if(s[i] == '.')
 	{
 		i++;
+		if(s[i] == '-')
+		{
+			sign = -1;
+			i++;
+		}
 		while(ft_isdigit(s[i]))
 		{
 			n = n * 10 + s[i] - 48;
@@ -206,12 +322,20 @@ int		get_spec(va_list ap, t_info *info, int i, char *s)
 		if (s[i] == '*')
 		{
 			n = va_arg(ap, int);
+			if(n < 0)
+			{
+				check = 1;
+				n = 0;
+			}
 			i++;
 		}
-		info->spec = n;
+		info->spec = n * sign;
+		if(n == 0 && !check)
+			info->zerospec = 1;
 	}
 	return(i);
 }
+
 
 int     find_write(va_list ap, char *s)
 {
@@ -221,13 +345,14 @@ int     find_write(va_list ap, char *s)
     
 	i = 0;
     sum = 0;
-	init(info);
+	init(&info);
+	i = 0;
     while(s[i] != '\0')
     {
         if(s[i] =='%')
         {
+
             i = get_flag(ap, &info, i, s);
-			//printf("\n***\n %d %d %d\n***\n",info.flag, info.width, info.spec);
             sum += form_check(&info, ap, i, s);
         }
         else
@@ -250,44 +375,3 @@ int ft_printf(char *s, ...)
     va_end(ap);
     return(sum);
 }
-
-// int main(void)
-// {
-//     int a;
-//     int b;
-//     int c;
-
-// 	printf("%-2.5d#\n",123);
-// 	printf("%3.5d#\n",123);
-// 	printf("%7.5d#\n",123);
-//     a = printf("%d#\n", 123);
-//     b = ft_printf("%d#\n", 123);
-//     printf("========\n%d %d",a, b);
-    
-//     return(0);
-// }
-
-
-
-	// if (info->width > info->spec)
-	// {
-	// 	//너비만 있으면 숫자는 그냥 호출
-	// 	if (info->spec == 0 && info-> width > 0)
-	// 	{
-	// 		ft_putnbr(num);
-    // 		return (sum);
-	// 	}
-	// 	//정밀도만 있으면 공백에 0 붙이기
-	// 	//둘 다 있으면 너비 < 정밀도라면 정밀도만 있다고 생각
-	// 	//너비 > 정밀도라면 __00123#(
-
-	// 	if (info->width > sum)
-	// 	{
-
-	// 		idx = info->spec - sum;
-	// 		while(idx--)
-	// 			write(1,"0",1);
-	// 	}
-	// 	if (info->flag == -1)
-
-	// }

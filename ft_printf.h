@@ -6,7 +6,7 @@
 /*   By: eunjkim <eunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 19:54:03 by eunjkim           #+#    #+#             */
-/*   Updated: 2021/05/12 15:11:11 by eunjkim          ###   ########.fr       */
+/*   Updated: 2021/05/18 16:25:14 by eunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct	s_info
     int spec;
     char zero;
     int sign;
+    int zerospec;
 }				t_info;
 
 
@@ -31,7 +32,7 @@ typedef struct	s_info
 # include <string.h>
 # include "libft/libft.h"
 
-void	init(t_info info);
+void 	init(t_info *info);
 int     get_width(va_list ap, t_info *info, int i, char *s);
 int		get_spec(va_list ap, t_info *info, int i, char *s);
 int     get_flag(va_list ap, t_info *info, int i, char *s);

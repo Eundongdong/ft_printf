@@ -1,13 +1,14 @@
 #include "ft_printf.h"
 
 
-void	init(t_info info)//기본값
+void init(t_info *info)//기본값
 {
-	info.flag = 1;
-	info.width = 0;
-    info.spec = 0;
-    info.zero = ' ';
-    info.sign = 1;
+	info->flag = 1;
+	info->width = 0;
+    info->spec = 0;
+    info->zero = ' ';
+    info->sign = 1;
+    info->zerospec = 0;
 }
 
 void	ft_putchar(char c)
@@ -30,7 +31,7 @@ void	ft_putnbr(int nb)
 {
 	char	c;
 
-	if (nb < 0)
+    if (nb < 0)
 	{
 		ft_putchar('-');
 		ft_rec(-(nb / 10));
