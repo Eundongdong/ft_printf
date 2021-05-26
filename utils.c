@@ -45,6 +45,28 @@ void	ft_putnbr(int nb)
 	ft_putchar(c);
 }
 
+void	ft_rec_u(unsigned int nb)
+{
+	char	nbr;
+
+	if (nb == 0)
+		return;
+	ft_rec(nb / 10);
+	nbr = nb % 10 + '0';
+	ft_putchar(nbr);
+}
+
+void    ft_putnbr_u(unsigned int nb)
+{
+    char	c;
+	
+	ft_rec(nb / 10);
+	c = '0' + (nb % 10);
+	ft_putchar(c);
+}
+
+
+
 int     ft_putbase(const char *base, unsigned long num, int base_count)
 {
     int sum;

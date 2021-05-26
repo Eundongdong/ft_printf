@@ -6,7 +6,7 @@
 /*   By: eunjkim <eunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 19:54:03 by eunjkim           #+#    #+#             */
-/*   Updated: 2021/05/18 16:25:14 by eunjkim          ###   ########.fr       */
+/*   Updated: 2021/05/26 16:04:55 by eunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ int     get_width(va_list ap, t_info *info, int i, char *s);
 int		get_spec(va_list ap, t_info *info, int i, char *s);
 int     get_flag(va_list ap, t_info *info, int i, char *s);
 void	ft_rec(int nb);
+void	ft_rec_u(unsigned int nb);
 void	ft_putchar(char c);
 void	ft_putnbr(int nb);
+void	ft_putnbr_u(unsigned int nb);
 int     puttype_d(va_list ap, int i, char *s);
 int     form_check(t_info *info, va_list ap, int i, char *s);
 int     find_write(va_list ap, char *s);
