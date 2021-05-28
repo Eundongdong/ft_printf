@@ -34,23 +34,14 @@ int main(void)
     result2 = 0;
 
 
-    // printf("[%d]\n", k);
-    // ft_printf("[%d]\n", k); 
+	result1 = printf("%1.d!\n", l); //T23
+	result2 = ft_printf("%1.d!\n", l); //T23
 
 
-    // result1 = printf("%x\n", j);
-    // result2 = ft_printf("%x\n", j);
-
-    result1 = printf("%i, %d, %d, %d, %d, %s, %c, %d, %u, %x, %X\n", i, j, k, l, m, n, c, c, j, j, j);
-    result2 = ft_printf("%i, %d, %d, %d, %d, %s, %c, %d, %u, %x, %X\n", i, j, k, l, m, n, c, c, j, j, j);
-
-    printf("%d \n",result1);
-    printf("%d \n",result2);
-
-// printf("\n\n\n\n");
-//     printf("%-4.0d\n",123456789);
-//     ft_printf("%-4.0d\n",123456789);
-
+	// result1 = printf("%2d",j);
+	// result2 = ft_printf("%2d",j);
+    printf("result1 = %d \n",result1);
+    printf("result2 = %d \n",result2);
 
     return (0);
 

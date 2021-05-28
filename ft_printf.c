@@ -6,7 +6,7 @@
 /*   By: eunjkim <eunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 19:53:15 by eunjkim           #+#    #+#             */
-/*   Updated: 2021/05/26 17:53:01 by eunjkim          ###   ########.fr       */
+/*   Updated: 2021/05/28 17:15:37 by eunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,36 +28,48 @@ char 	option_withzero(t_info *info)
 
 int		print_info(t_info *info, int sum)
 {
-	char c;
-		
+	char	c;
 	c = option_withzero(info);
 	if (sum > info->spec)
 		info->spec = sum;
+
+	// printf("\n$$$s1 info->result : %d\n",info->result);
 	info->width -= info->spec;
 	if (!(info->flag == -1 || info->zero == '0'))
 		while (info->width-- > 0)
 		{
-			write(1," ",1);
+			info->result +=ft_putchar(' ');
+			// printf("\n$$$s2 info->result : %d\n",info->result);
 		}
+			
 	if (info->sign == -1)
-		write(1,"-",1);
-	if (!(info->flag == -1))
+	{
+		info->result +=ft_putchar('-');
+		// printf("\n$$$s3 info->result : %d\n",info->result);
+	}
+	if (!(info->flag == -1) && info->width >0 )
 		while (info->width-- > 0)
 		{
-			write(1,&c,1);
-		}	
+			info->result +=ft_putchar(c);
+			// printf("\n$$$s4 info->result : %d\n",info->result);
+		}
+			
 	while (sum < info->spec--)
 	{
-		write(1,"0",1);
+		info->result +=ft_putchar('0');
+		// printf("\n$$$s4 info->result : %d\n",info->result);
 	}
+	// printf("\n$$$s5 info->result : %d\n",info->result);
 	return(info ->width);
 }
 
-int		find_num_length(int num)
+int		find_num_length(long long num)
 {
-	int sum;
+	long long sum;
 
 	sum = 0;
+	if (num == 0)
+		return (1);
     while(num)
     {
         sum += 1;
@@ -68,10 +80,17 @@ int		find_num_length(int num)
 
 int     type_int(t_info *info, va_list ap, int i, char *s)
 {
-    int num;
+    long long num;
     int sum;
 	int plus_sum;
 		
+
+	// printf("\n @@@ info->flag : %d @@@\n",info->flag);
+	// printf("\n @@@ info->width : %d @@@\n",info->width);
+	// printf("\n @@@ info->spec : %d @@@\n",info->spec);
+	// printf("\n @@@ info->zero : %c @@@\n",info->zero);
+	// printf("\n @@@ info->sign : %d @@@\n",info->sign);
+	// printf("\n @@@ info->zerospec : %d @@@\n",info->zerospec);
 	sum = 0;
 	if (info->spec <0)
 	{
@@ -85,26 +104,34 @@ int     type_int(t_info *info, va_list ap, int i, char *s)
 		num = num * (-1);
 		info->sign = -1;
 		info->width--;
-		sum++;
 	}
-	if(num == 0 && info->zero != '0' &&info->zerospec ==0)
+	if(num == 0 && info->zero != '0' &&info->zerospec ==0 && !(info->width))
     {
-		write(1,"0",1);
-		return(1);
+		info->result +=ft_putchar('0');
+		return (1);
 	}
+	
+
+	// printf("\n$$$ info->result : %d\n",info->result);
+	// info->result += find_num_length(num);
 	sum += find_num_length(num);
-	// printf("\n sum :[%d]\n",sum);
+	printf("\n$$$sum : %d\n",sum);
 	plus_sum = print_info(info, sum);
-	if(num>0)
+	
+	if (info->zerospec && num == 0)
+		return (plus_sum);
+	printf("\n$$$ plus_sum : %d",plus_sum);
+	// printf("\n$$$ info->result : %d\n",info->result);
+	if(num>=0)
 		ft_putnbr(num);
 	if (plus_sum >0)
 	{
 		sum += plus_sum;
 		while (plus_sum-- > 0)
-            write(1," ",1);
+            info->result +=ft_putchar(' ');
 	}
-	// printf("\n sum :[%d]\n",sum);
-    return (sum);
+	// printf("\n$$$ info->result : %d \t sum : %d\n",info->result, sum);
+    return (info->result + sum);
 }
 
 int     type_char(t_info *info, va_list ap, int i, char *s)
@@ -124,15 +151,14 @@ int     type_char(t_info *info, va_list ap, int i, char *s)
     word = va_arg(ap, int);	
 	
 	if (info->flag == -1)
-		write(1,&word,1);
+		info->result +=ft_putchar(word);
 	if ((spec_num = info->spec) < 0)
 	{
 		idx = 1;
 		spec_num *= -1;
-		write(1,&word,1);
+		info->result +=ft_putchar(word);
 		while (idx++ <spec_num)
-			write(1," ",1);
-		
+			info->result +=ft_putchar(' ');
 		return(spec_num);
 	}
 	if (info->width > 0)
@@ -140,16 +166,16 @@ int     type_char(t_info *info, va_list ap, int i, char *s)
 		while (idx++ < info->width)
 		{
 			if (info->zero == '0' && info->flag ==1)
-				write(1,"0",1);
+				info->result +=ft_putchar('0');
 			else
-				write(1," ",1);
+				info->result +=ft_putchar(' ');
 		}
 		result = info->width;
 	}
 
 	if (info->flag == 1)
-		write(1,&word,1);
-    return (result);
+		info->result +=ft_putchar(word);
+    return (info->result);
 }
 int     type_string(t_info *info, va_list ap, int i, char *s)
 {
@@ -171,7 +197,7 @@ int     type_string(t_info *info, va_list ap, int i, char *s)
 		idx = 0;
 		spec_num *= -1;
 		while (idx++ < spec_num)
-			write(1," ",1);
+			info->result +=ft_putchar(' ');
 		sum +=idx;
 		return(spec_num);
 	}
@@ -179,7 +205,7 @@ int     type_string(t_info *info, va_list ap, int i, char *s)
 	{
 		idx = 0;
 		while (idx++ < info->width)
-			write(1," ",1);
+			info->result +=ft_putchar(' ');
 		sum += idx;
 		return(info->width);
 	}
@@ -189,9 +215,9 @@ int     type_string(t_info *info, va_list ap, int i, char *s)
 		while (idx++ < ((info->width) - string_len))
 		{
 			if (info->zero == '0' && info->flag ==1)
-				write(1,"0",1);
+				info->result +=ft_putchar('0');
 			else
-				write(1," ",1);
+				info->result +=ft_putchar(' ');
 		}
 		string_len = info->width;
 		sum+=idx;
@@ -238,7 +264,7 @@ int		type_base(t_info *info, va_list ap, int i, char *s)
 	check = s[i];
 	if(num == 0 && info->zero != '0' &&info->zerospec ==0)
     {
-		write(1,"0",1);
+		info->result +=ft_putchar('0');
 		return(1);
 	}
 	sum += find_num_length_x(num, check);
@@ -253,7 +279,7 @@ int		type_base(t_info *info, va_list ap, int i, char *s)
 	{
 		sum += plus_sum;
 	while (plus_sum-- > 0)
-            write(1," ",1);	
+            info->result +=ft_putchar(' ');
 	}
 		
 	return (sum);
@@ -289,7 +315,7 @@ int		type_unsigned(t_info *info, va_list ap, int i, char *s)
 	num = va_arg(ap,unsigned int);
 	if(num == 0 && info->zero != '0' &&info->zerospec ==0)
     {
-		write(1,"0",1);
+		info->result +=ft_putchar('0');
 		return(1);
 	}
 	sum += find_num_length_u(num);
@@ -299,7 +325,7 @@ int		type_unsigned(t_info *info, va_list ap, int i, char *s)
 	{
 		sum += plus_sum;
 		while (plus_sum-->0)
-		write(1," ",1);
+		info->result +=ft_putchar(' ');
 	}
 	return (sum);
 }
@@ -320,7 +346,8 @@ int		type_address(t_info *info, va_list ap, int i, char *s)
 	num = va_arg(ap, long long);
 	sum = find_num_length_x(num,'x');
 	plus_sum = print_info(info, sum);
-	write(1,"0x",2);
+	info->result +=ft_putchar('0');
+	info->result +=ft_putchar('x');
 	sum = ft_putbase("0123456789abcedf",num,16);
 	return (sum + 2);
 }
@@ -448,7 +475,7 @@ int     find_write(va_list ap, char *s)
         else
         {
             sum += 1;
-            write(1, &s[i], 1);
+            info.result +=ft_putchar(s[i]);
         }
         i++;
     }

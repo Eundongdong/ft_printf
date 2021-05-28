@@ -8,15 +8,11 @@ void init(t_info *info)//기본값
     info->spec = 0;
     info->zero = ' ';
     info->sign = 1;
-    info->zerospec = 0;
+    info->zerospec = 0; //
+    info->result = 0;
 }
 
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
-void	ft_rec(int nb)
+void	ft_rec(long long nb)
 {
 	char	nbr;
 
@@ -24,16 +20,16 @@ void	ft_rec(int nb)
 		return ;
 	ft_rec(nb / 10);
 	nbr = nb % 10 + '0';
-	ft_putchar(nbr);
+	write(1,&nbr,1);
 }
 
-void	ft_putnbr(int nb)
+void	ft_putnbr(long long nb)
 {
 	char	c;
 
     if (nb < 0)
 	{
-		ft_putchar('-');
+		write(1,"-",1);
 		ft_rec(-(nb / 10));
 		c = '0' - (nb % 10);
 	}
@@ -42,7 +38,7 @@ void	ft_putnbr(int nb)
 		ft_rec(nb / 10);
 		c = '0' + (nb % 10);
 	}
-	ft_putchar(c);
+	write(1,&c,1);
 }
 
 void	ft_rec_u(unsigned int nb)
@@ -53,7 +49,7 @@ void	ft_rec_u(unsigned int nb)
 		return;
 	ft_rec(nb / 10);
 	nbr = nb % 10 + '0';
-	ft_putchar(nbr);
+	write(1,&nbr,1);
 }
 
 void    ft_putnbr_u(unsigned int nb)
@@ -62,7 +58,7 @@ void    ft_putnbr_u(unsigned int nb)
 	
 	ft_rec(nb / 10);
 	c = '0' + (nb % 10);
-	ft_putchar(c);
+	write(1,&c,1);
 }
 
 
@@ -100,4 +96,10 @@ int     ft_putbase(const char *base, unsigned long num, int base_count)
     while(i > 0)
         write(1,&s[--i],1);
     return(sum);
+}
+
+int     ft_putchar(char c)
+{
+    write(1,&c,1);
+    return (1);
 }
