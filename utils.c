@@ -3,13 +3,13 @@
 
 void init(t_info *info)//기본값
 {
-	info->flag = 1;
+	info->flag = 1; //음수면 -1로 변함
 	info->width = 0;
     info->spec = 0;
-    info->zero = ' ';
+    info->zero = ' '; //0들어오면 '0'으로 변함
     info->sign = 1;
-    info->zerospec = 0; //
-    info->result = 0;
+    info->zerospec = 0; //정밀도에 들어온 값이 정말 0이면 1 변함
+    info->result = 0; //읽은 값
 }
 
 void	ft_rec(long long nb)
@@ -63,13 +63,13 @@ void    ft_putnbr_u(unsigned int nb)
 
 
 
-int     ft_putbase(const char *base, unsigned long num, int base_count)
+int     ft_putbase(const char *base, unsigned long long num, int base_count)
 {
-    int sum;
-    int i;
-    int count;
-    unsigned long temp;
-    char    *s;
+    int                 sum;
+    int                 i;
+    int                 count;
+    unsigned long long  temp;
+    char                *s;
 
     i = 0;
     sum = 0;

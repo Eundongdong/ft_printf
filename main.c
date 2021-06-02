@@ -30,19 +30,22 @@ int main(void)
     int     result1;
     int     result2;
 
-    result1 = 0;
-    result2 = 0;
-
-
-	result1 = printf("%1.d!\n", l); //T23
-	result2 = ft_printf("%1.d!\n", l); //T23
-
-
-	// result1 = printf("%2d",j);
-	// result2 = ft_printf("%2d",j);
-    printf("result1 = %d \n",result1);
-    printf("result2 = %d \n",result2);
-
+    // result1 = 0;
+    // result2 = 0;
+	// a = 12;
+	// result1 = printf("%-2s, %.s, %-4s, %-2.4s, %-8.12s, %3s, %8s, %---2s, %.*s, %.0s, %.1s, %.2s, %.4s, %.8s!\n", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, -2, NULL, NULL, NULL, NULL, NULL, NULL);
+	// result2 = ft_printf("%-2s, %.s, %-4s, %-2.4s, %-8.12s, %3s, %8s, %---2s, %.*s, %.0s, %.1s, %.2s, %.4s, %.8s!\n", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, -2, NULL, NULL, NULL, NULL, NULL, NULL);
+	// printf("result1 = %d \n",result1);
+	// printf("result2 = %d \n\n\n",result2);
+	result1 = printf("%p!\n",NULL);
+	result2 = ft_printf("%p!\n",NULL);
+	printf("result1 = %d \n",result1);
+	printf("result2 = %d \n\n\n",result2);
+	// result1 = printf("%5p!\n",(void *)12);
+	// result2 = ft_printf("%5p!\n",(void *)12);
+	// printf("result1 = %d \n",result1);
+	// printf("result2 = %d \n\n\n",result2);
+	
     return (0);
 
 }

@@ -6,7 +6,7 @@
 /*   By: eunjkim <eunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 19:54:03 by eunjkim           #+#    #+#             */
-/*   Updated: 2021/05/28 15:51:37 by eunjkim          ###   ########.fr       */
+/*   Updated: 2021/06/02 14:33:29 by eunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ int     form_check(t_info *info, va_list ap, int i, char *s);
 int     find_write(va_list ap, char *s);
 int     ft_printf(char *s, ...);
 int		ft_putstr(char *s);
-int     ft_putbase(const char *base, unsigned long num, int base_count);
+int     ft_putbase(const char *base, unsigned long long num, int base_count);
 #endif
