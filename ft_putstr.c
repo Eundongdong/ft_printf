@@ -6,7 +6,7 @@
 /*   By: eunjkim <eunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 00:56:09 by marvin            #+#    #+#             */
-/*   Updated: 2021/04/26 21:35:01 by eunjkim          ###   ########.fr       */
+/*   Updated: 2021/06/03 03:49:34 by eunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		ft_putstr(char *s)
 	i = 0;
 	while (i < len)
 	{
-		write(1,&s[i],1);
+		write(1, &s[i], 1);
 		i++;
 	}
 	return (len);

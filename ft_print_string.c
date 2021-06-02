@@ -6,7 +6,7 @@
 /*   By: eunjkim <eunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 02:42:06 by eunjkim           #+#    #+#             */
-/*   Updated: 2021/06/03 03:30:10 by eunjkim          ###   ########.fr       */
+/*   Updated: 2021/06/03 03:45:43 by eunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,28 +60,28 @@ int		string_sub3(t_info *info, int temp)
 	return (idx - 1);
 }
 
-// int		string_sub4(t_info *info, int check, char *str, int sum)
-// {
-// 	int		temp;
-// 	int		idx;
+int		string_sub4(t_info *info, int check, char *str, int sum)
+{
+	int		temp;
+	int		idx;
 
-// 	if (info->spec && ft_strlen(str) > info->spec)
-// 			temp = info->spec;
-// 	if (info->width > 0 && temp< info->width)
-// 		sum += string_sub3(info, temp);
-// 	if (info->flag == 1)
-// 	{
-// 		if ((info-> spec) && info->flag == 1 )
-// 		{
-// 			idx = 0;
-// 			while (idx++ < temp)
-// 				sum += ft_putchar(str[idx]);
-// 		}
-// 		if (!(info->spec)&&(info->flag))
-// 			sum += ft_putstr(str);
-// 	}
-// 	return (sum);
-// }
+	if (info->spec && ft_strlen(str) > info->spec)
+			temp = info->spec;
+	if (info->width > 0 && temp< info->width)
+		sum += string_sub3(info, temp);
+	if (info->flag == 1)
+	{
+		if ((info-> spec) && info->flag == 1 )
+		{
+			idx = 0;
+			while (idx++ < temp)
+				sum += ft_putchar(str[idx]);
+		}
+		if (!(info->spec)&&(info->flag))
+			sum += ft_putstr(str);
+	}
+	return (sum);
+}
 int     type_string(t_info *info, va_list ap, int i, char *s)
 {
     char	*str;
@@ -102,48 +102,47 @@ int     type_string(t_info *info, va_list ap, int i, char *s)
 		sum += string_sub2(info, sum, str);
 	if (info->spec <0 || (info->spec == 0 && info->zerospec))
 		return (string_sub(info,check, str, sum));
-	// sum = (string_sub4(info,check, str, sum));
+	sum += string_sub4(info,check, str, sum);
+	if (check)
+		free(str);
+	return (sum);
+	// if (info->spec && ft_strlen(str) > info->spec)
+	// 		temp = info->spec;
+			
+	// if (info->width > 0 && temp< info->width)
+	// {
+	// 	idx = 0; // ㅂㅏ뀐 점
+	// 	while (idx++ < ((info->width) - temp))
+	// 	{
+	// 		if (info->zero == '0' && info->flag ==1)
+	// 		{
+	// 			info->result +=ft_putchar('0');
+	// 		}
+	// 		else
+	// 		{
+	// 			info->result +=ft_putchar(' ');
+	// 		}
+	// 	}
+	// 	sum+=idx - 1;
+	// }
+	// if (info->flag == 1)
+	// {
+	// 	if ((info-> spec) && info->flag == 1 )
+	// 	{
+	// 		idx = 0;
+			
+	// 		while (idx < temp)
+	// 		{
+	// 			sum += ft_putchar(str[idx]);
+	// 			idx++;
+	// 		}
+			
+	// 	}
+	// 	if (!(info->spec)&&(info->flag))
+	// 		sum += ft_putstr(str);
+
+	// }
 	// if(check)
 	// 	free(str);
 	// return (sum);
-	if (info->spec && ft_strlen(str) > info->spec)
-			temp = info->spec;
-			
-	if (info->width > 0 && temp< info->width)
-	{
-		idx = 0; // ㅂㅏ뀐 점
-		while (idx++ < ((info->width) - temp))
-		{
-			if (info->zero == '0' && info->flag ==1)
-			{
-				info->result +=ft_putchar('0');
-			}
-			else
-			{
-				info->result +=ft_putchar(' ');
-			}
-		}
-		ft_strlen(str) = info->width;
-		sum+=idx - 1;
-	}
-	if (info->flag == 1)
-	{
-		if ((info-> spec) && info->flag == 1 )
-		{
-			idx = 0;
-			
-			while (idx < temp)
-			{
-				sum += ft_putchar(str[idx]);
-				idx++;
-			}
-			
-		}
-		if (!(info->spec)&&(info->flag))
-			sum += ft_putstr(str);
-
-	}
-	if(check)
-		free(str);
-	return (sum);
 }

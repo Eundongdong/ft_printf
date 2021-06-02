@@ -6,7 +6,7 @@
 /*   By: eunjkim <eunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 19:53:15 by eunjkim           #+#    #+#             */
-/*   Updated: 2021/06/03 00:55:13 by eunjkim          ###   ########.fr       */
+/*   Updated: 2021/06/03 03:47:43 by eunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ int		form_check(t_info *info, va_list ap, int i, char *s)
 		return (-1);
 	return (sum);
 }
-
-
 
 int		ft_printf(char *s, ...)
 {
