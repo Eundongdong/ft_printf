@@ -30,22 +30,12 @@ int main(void)
     int     result1;
     int     result2;
 
-    // result1 = 0;
-    // result2 = 0;
-	// a = 12;
-	// result1 = printf("%-2s, %.s, %-4s, %-2.4s, %-8.12s, %3s, %8s, %---2s, %.*s, %.0s, %.1s, %.2s, %.4s, %.8s!\n", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, -2, NULL, NULL, NULL, NULL, NULL, NULL);
-	// result2 = ft_printf("%-2s, %.s, %-4s, %-2.4s, %-8.12s, %3s, %8s, %---2s, %.*s, %.0s, %.1s, %.2s, %.4s, %.8s!\n", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, -2, NULL, NULL, NULL, NULL, NULL, NULL);
-	// printf("result1 = %d \n",result1);
-	// printf("result2 = %d \n\n\n",result2);
-	result1 = printf("%p!\n",NULL);
-	result2 = ft_printf("%p!\n",NULL);
-	printf("result1 = %d \n",result1);
-	printf("result2 = %d \n\n\n",result2);
-	// result1 = printf("%5p!\n",(void *)12);
-	// result2 = ft_printf("%5p!\n",(void *)12);
-	// printf("result1 = %d \n",result1);
-	// printf("result2 = %d \n\n\n",result2);
-	
-    return (0);
+	ft_printf("%10.c %10.2d %10.2s %10.2i %10.2x %10.2X %10.2u %10.2p\n", 'a', 10, "(null)", f, e, e, e, o);
+
+while(1)
+{
+
+}
+return (0);
 
 }

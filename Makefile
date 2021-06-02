@@ -7,9 +7,12 @@ CC = gcc
 AR = ar
 AFLAGS = rcs
 #CFLAGS = -Wall -Wextra -Werror
-SRCS = ft_printf.c \
-	   utils.c \
-	   ft_putstr.c
+SRCS = ft_printf.c utils.c ft_print_int.c ft_form_info.c ft_putstr.c ft_print_char.c ft_print_percent.c \
+	   ft_print_string.c \
+	   ft_print_u_int.c \
+	   ft_print_base.c \
+	   ft_print_address.c
+	   
 OBJECTS = $(SRCS:.c=.o)
 all : $(NAME)
 clean :
@@ -17,6 +20,7 @@ clean :
 	make clean -C $(LIBFT)
 fclean : clean
 	$(RM) $(NAME)
+	$(RM) $(LIBFT_LIB)
 	make fclean -C $(LIBFT)
 re : fclean all
 

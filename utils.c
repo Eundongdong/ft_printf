@@ -95,6 +95,7 @@ int     ft_putbase(const char *base, unsigned long long num, int base_count)
     sum = i;
     while(i > 0)
         write(1,&s[--i],1);
+    free(s);
     return(sum);
 }
 
