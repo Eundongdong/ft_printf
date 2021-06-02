@@ -1,15 +1,15 @@
 #include "ft_printf.h"
 
 
-void init(t_info *info)//기본값
+void init(t_info *info)
 {
-	info->flag = 1; //음수면 -1로 변함
+	info->flag = 1;
 	info->width = 0;
     info->spec = 0;
-    info->zero = ' '; //0들어오면 '0'으로 변함
+    info->zero = ' ';
     info->sign = 1;
-    info->zerospec = 0; //정밀도에 들어온 값이 정말 0이면 1 변함
-    info->result = 0; //읽은 값
+    info->zerospec = 0;
+    info->result = 0;
 }
 
 void	ft_rec(long long nb)

@@ -6,7 +6,7 @@
 /*   By: eunjkim <eunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 19:54:03 by eunjkim           #+#    #+#             */
-/*   Updated: 2021/06/02 22:33:10 by eunjkim          ###   ########.fr       */
+/*   Updated: 2021/06/03 01:48:15 by eunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,10 @@ int     type_int(t_info *info, va_list ap, int i, char *s);
 int		type_percent(t_info *info, va_list ap, int i, char *s);
 int     type_string(t_info *info, va_list ap, int i, char *s);
 int		find_num_length_x(unsigned long long num, char check);
-
-
-
+int		find_write(va_list ap, char *s);
+int		find_num_length(long long num);
+char	option_withzero(t_info *info);
+int		print_info(t_info *info, int sum);
 
 
 
