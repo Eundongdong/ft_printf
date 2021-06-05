@@ -6,7 +6,7 @@
 /*   By: eunjkim <eunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 01:23:54 by eunjkim           #+#    #+#             */
-/*   Updated: 2021/06/03 01:31:07 by eunjkim          ###   ########.fr       */
+/*   Updated: 2021/06/05 14:50:47 by eunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		char_sub_2(t_info *info, int idx, int spec_num, char word)
 	return (spec_num);
 }
 
-int		type_char(t_info *info, va_list ap, int i, char *s)
+int		type_char(t_info *info, va_list ap)
 {
 	char	word;
 	int		idx;

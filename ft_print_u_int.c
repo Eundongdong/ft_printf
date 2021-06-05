@@ -6,7 +6,7 @@
 /*   By: eunjkim <eunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 23:04:07 by eunjkim           #+#    #+#             */
-/*   Updated: 2021/06/02 23:30:16 by eunjkim          ###   ########.fr       */
+/*   Updated: 2021/06/05 14:55:04 by eunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,12 @@ void	unsigned_setting(t_info *info)
 	}
 }
 
-int		type_unsigned(t_info *info, va_list ap, int i, char *s)
+int		type_unsigned(t_info *info, va_list ap)
 {
 	unsigned int	num;
 	int				plus_sum;
 
+	plus_sum = 0;
 	num = va_arg(ap, unsigned int);
 	if (num == 0)
 	{

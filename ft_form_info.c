@@ -6,7 +6,7 @@
 /*   By: eunjkim <eunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 23:31:38 by eunjkim           #+#    #+#             */
-/*   Updated: 2021/06/03 00:12:44 by eunjkim          ###   ########.fr       */
+/*   Updated: 2021/06/05 15:19:18 by eunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@ int		get_flag(va_list ap, t_info *info, int i, char *s)
 	return (i);
 }
 
+void	width_sub(t_info *info, int n, int check)
+{
+	info->width = n * check;
+	if (info->width < 0)
+	{
+		info->flag = -1;
+		info->width *= -1;
+	}
+}
+
 int		get_width(va_list ap, t_info *info, int i, char *s)
 {
 	int		n;
@@ -33,22 +43,11 @@ int		get_width(va_list ap, t_info *info, int i, char *s)
 	n = 0;
 	while (s[i] == '0' || s[i] == '-')
 	{
-		while (s[i] == '0')
-		{
-			info->zero = '0';
-			i++;
-		}
-		while (s[i] == '-')
-		{
-			i++;
-			check = -1;
-		}
+		info->zero = (s[i] == '0') ? '0' : ' ';
+		check = (s[i++] == '-') ? -1 : 1;
 	}
 	while (ft_isdigit(s[i]))
-	{
-		n = n * 10 + s[i] - 48;
-		i++;
-	}
+		n = n * 10 + s[i++] - 48;
 	if (s[i] == '*')
 	{
 		n = va_arg(ap, int);
@@ -59,12 +58,7 @@ int		get_width(va_list ap, t_info *info, int i, char *s)
 		}
 		i++;
 	}
-	info->width = n * check;
-	if (info->width < 0)
-	{
-		info->flag = -1;
-		info->width *= -1;
-	}
+	width_sub(info, n, check);
 	i = get_spec(ap, info, i, s);
 	return (i);
 }

@@ -6,21 +6,21 @@
 /*   By: eunjkim <eunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 01:46:47 by eunjkim           #+#    #+#             */
-/*   Updated: 2021/06/03 03:57:01 by eunjkim          ###   ########.fr       */
+/*   Updated: 2021/06/05 14:20:58 by eunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void init(t_info *info)
+void	init(t_info *info)
 {
 	info->flag = 1;
 	info->width = 0;
-    info->spec = 0;
-    info->zero = ' ';
-    info->sign = 1;
-    info->zerospec = 0;
-    info->result = 0;
+	info->spec = 0;
+	info->zero = ' ';
+	info->sign = 1;
+	info->zerospec = 0;
+	info->result = 0;
 }
 
 int		find_num_length(long long num)
@@ -71,8 +71,8 @@ int		print_info(t_info *info, int sum)
 	return (info->width);
 }
 
-int     ft_putchar(char c)
+int		ft_putchar(char c)
 {
-    write(1, &c, 1);
-    return (1);
+	write(1, &c, 1);
+	return (1);
 }

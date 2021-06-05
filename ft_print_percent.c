@@ -6,25 +6,26 @@
 /*   By: eunjkim <eunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 01:48:40 by eunjkim           #+#    #+#             */
-/*   Updated: 2021/06/03 02:41:02 by eunjkim          ###   ########.fr       */
+/*   Updated: 2021/06/05 15:10:34 by eunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	percent_sub(t_info *info, char *content, char *blank)
+char	*percent_sub(t_info *info, char *content, char *blank)
 {
 	char	*temp;
 
 	while (--info->width > 0)
 	{
 		temp = ft_strjoin(content, blank);
+		free(content);
 		content = temp;
-		free(temp);
 	}
+	return (content);
 }
 
-int		type_percent(t_info *info, va_list ap, int i, char *s)
+int		type_percent(t_info *info)
 {
 	char	*content;
 	int		sum;
@@ -36,7 +37,7 @@ int		type_percent(t_info *info, va_list ap, int i, char *s)
 		blank = ft_strdup("0");
 	else
 		blank = ft_strdup(" ");
-	percent_sub(info, content, blank);
+	content = percent_sub(info, content, blank);
 	if (info->flag == -1)
 		sum += ft_putchar('%');
 	sum += ft_putstr(content);

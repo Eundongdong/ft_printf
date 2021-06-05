@@ -6,12 +6,12 @@ RM = rm -rf
 CC = gcc
 AR = ar
 AFLAGS = rcs
-#CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 SRCS = ft_printf.c utils.c ft_print_int.c ft_form_info.c ft_putstr.c ft_print_char.c ft_print_percent.c \
 	   ft_print_string.c \
 	   ft_print_u_int.c \
 	   ft_print_base.c \
-	   ft_print_address.c ft_form_info_2.c ft_print_utils.c
+	   ft_print_address.c ft_form_info_2.c ft_print_utils.c ft_utils_2.c
 	   
 OBJECTS = $(SRCS:.c=.o)
 all : $(NAME)
@@ -25,8 +25,9 @@ fclean : clean
 re : fclean all
 
 $(NAME) : $(OBJECTS)
-	make all -C $(LIBFT)
-	cp $(LIBFT)/$(LIBFT_LIB) $(NAME)
-	$(AR) $(AFLAGS) $@ $?
+	@make all -C $(LIBFT)
+	@cp $(LIBFT)/$(LIBFT_LIB) $(NAME)
+	@$(AR) $(AFLAGS) $@ $?
+
 bonus : all
 .PHONY : all clean fclean re bonus

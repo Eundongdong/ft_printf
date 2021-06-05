@@ -6,7 +6,7 @@
 /*   By: eunjkim <eunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 19:53:15 by eunjkim           #+#    #+#             */
-/*   Updated: 2021/06/03 03:47:43 by eunjkim          ###   ########.fr       */
+/*   Updated: 2021/06/05 14:55:43 by eunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ int		form_check(t_info *info, va_list ap, int i, char *s)
 	sum = 0;
 	idx = 0;
 	if (s[i] == 'd' || s[i] == 'i')
-		sum = type_int(info, ap, i, s);
+		sum = type_int(info, ap);
 	else if (s[i] == 'c')
-		sum = type_char(info, ap, i, s);
+		sum = type_char(info, ap);
 	else if (s[i] == 's')
-		sum = type_string(info, ap, i, s);
+		sum = type_string(info, ap);
 	else if (s[i] == 'x' || s[i] == 'X')
 		sum = type_base(info, ap, i, s);
 	else if (s[i] == 'p')
-		sum = type_address(info, ap, i, s);
+		sum = type_address(info, ap);
 	else if (s[i] == 'u')
-		sum = type_unsigned(info, ap, i, s);
+		sum = type_unsigned(info, ap);
 	else if (s[i] == '%')
-		sum = type_percent(info, ap, i, s);
+		sum = type_percent(info);
 	else
 		return (-1);
 	return (sum);

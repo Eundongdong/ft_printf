@@ -6,7 +6,7 @@
 /*   By: eunjkim <eunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 01:31:24 by eunjkim           #+#    #+#             */
-/*   Updated: 2021/06/03 01:47:44 by eunjkim          ###   ########.fr       */
+/*   Updated: 2021/06/05 14:48:27 by eunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		int_sub_2(t_info *info, long long num)
 	return (info->result + sum);
 }
 
-int		type_int(t_info *info, va_list ap, int i, char *s)
+int		type_int(t_info *info, va_list ap)
 {
 	long long	num;
 

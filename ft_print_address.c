@@ -6,7 +6,7 @@
 /*   By: eunjkim <eunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 01:04:25 by eunjkim           #+#    #+#             */
-/*   Updated: 2021/06/03 01:16:25 by eunjkim          ###   ########.fr       */
+/*   Updated: 2021/06/05 14:55:58 by eunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	add_sub_4(t_info *info)
 	}
 }
 
-int		type_address(t_info *info, va_list ap, int i, char *s)
+int		type_address(t_info *info, va_list ap)
 {
 	int					sum;
 	unsigned long long	num;
